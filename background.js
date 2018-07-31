@@ -17,10 +17,12 @@ function add_domain(tabId,domain){
 chrome.webRequest.onResponseStarted.addListener(function(info){
 	for(let key in info){
 		let domain =info.url.split("/")[2];
+		if(info.tabId!=-1){
 		add_domain(info.tabId,domain);
 		chrome.browserAction.setBadgeText({
 			text: domains[info.tabId].length.toString(),tabId:info.tabId
 		});
+		}
 	}
 },
 {urls: ["<all_urls>"]},
